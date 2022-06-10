@@ -18,6 +18,8 @@ enum Operations: String, Hashable {
 }
 
 struct CustomButtonView: View {
+    // MARK: - PROPERTIES
+
     //: Parameters
     let title: String
     let buttonType: CalculatorCategory
@@ -51,8 +53,8 @@ struct CustomButtonView: View {
         }
     }
     
-    //: Functions
-    
+    // MARK: - FUNCTIONS
+
     private func numberPanel(title: String) {
         if startType {
             if typeSecond {
@@ -84,17 +86,58 @@ struct CustomButtonView: View {
             fatalError("I don't know")
         }
     }
-    
+    private func function2Panel(title: String) {
+        switch title {
+        case "÷":
+            operators = .div
+            typeSecond = true
+        case "+":
+            operators = .add
+            typeSecond = true
+        case "-":
+            operators = .sub
+            typeSecond = true
+        case "X":
+            operators = .mul
+            typeSecond = true
+        case ".":
+            if !displayNumber.contains(".") {
+                displayNumber += "."
+                startType = true
+            }
+        case "=":
+            let first = Double(displayNumber) ?? 0.0
+            let second = Double(secondOperand) ?? 0.0
+            
+            switch operators {
+            case .add:
+                let result = first + second
+                displayNumber = String(describing: result)
+            case .sub:
+                let result = first - second
+                displayNumber = String(describing: result)
+            case .mul:
+                let result = first * second
+                displayNumber = String(describing: result)
+            case .div:
+                let result = first / second
+                displayNumber = String(describing: result)
+            }
+            
+            self.clear()
+            
+        default:
+            fatalError("I don't know")
+        }
+    }
     private func clear() {
         operators = .add
         secondOperand = ""
         typeSecond = false
     }
     
-    private func currentPrint() {
-        print("\(displayNumber), \(operators), \(secondOperand), \(typeSecond)")
-    }
-    
+    // MARK: - BODY
+
     var body: some View {
         Button {
             if "0123456789".contains(title) {
@@ -102,52 +145,7 @@ struct CustomButtonView: View {
             } else if "C±%".contains(title) {
                 self.function1Panel(title: title)
             } else {
-                currentPrint()
-                switch title{
-                case "÷":
-                    operators = .div
-                    typeSecond = true
-                case "+":
-                    operators = .add
-                    typeSecond = true
-                case "-":
-                    operators = .sub
-                    typeSecond = true
-                case "X":
-                    operators = .mul
-                    typeSecond = true
-                case ".":
-                    if displayNumber.contains(".") {
-                        //
-                    } else {
-                        startType = true
-                        displayNumber += "."
-                    }
-                    
-                case "=":
-                    let first = Double(displayNumber) ?? 0.0
-                    let second = Double(secondOperand) ?? 0.0
-                    
-                    switch operators {
-                    case .add:
-                        let result = first + second
-                        displayNumber = String(describing: result)
-                    case .sub:
-                        let result = first - second
-                        displayNumber = String(describing: result)
-                    case .mul:
-                        let result = first * second
-                        displayNumber = String(describing: result)
-                    case .div:
-                        let result = first / second
-                        displayNumber = String(describing: result)
-                    }
-                    
-                    self.clear()
-                    
-                default:
-                    fatalError("I don't know")
-                }
+                self.function2Panel(title: title)
             }
         } label: {
             Capsule()

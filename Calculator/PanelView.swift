@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct PanelView: View {
+    // MARK: - PROPERTIES
+
     let fitSize: CGFloat
     @Binding var displayNumber: String
     @Binding var operators: Operations
     @Binding var secondOperand: String
     @Binding var typeSecond: Bool
     @State var startType: Bool = false
+    
+    // MARK: - BODY
+
     var body: some View {
         VStack {
             HStack {
