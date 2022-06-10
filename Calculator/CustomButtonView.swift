@@ -81,7 +81,7 @@ struct CustomButtonView: View {
         case "%":
             let value = Float(displayNumber) ?? 0.0
             displayNumber = String(describing: value / 100.0)
-            startType = false
+            startType = true
         default:
             fatalError("I don't know")
         }
@@ -127,7 +127,7 @@ struct CustomButtonView: View {
             self.clear()
             
         default:
-            fatalError("I don't know")
+            self.function1Panel(title: "C")
         }
     }
     private func clear() {
@@ -150,9 +150,10 @@ struct CustomButtonView: View {
         } label: {
             Capsule()
                 .fill(Color(buttonColor))
-                .frame(width: isZeroButton ? fitSize / 2 : fitSize / 4, height: fitSize / 4)
+                .frame(width: isZeroButton ? fitSize / 1.9 : fitSize / 4, height: fitSize / 4)
                 .overlay(
                     Text(title)
+                        .offset(x: isZeroButton ? fitSize / 16 : 0)
                         .minimumScaleFactor(0.5)
                         .font(.system(size: fitSize / 8))
                         .frame(
@@ -160,6 +161,7 @@ struct CustomButtonView: View {
                             height: fitSize / 8,
                             alignment: .center)
                         .foregroundColor(textColor)
+                    , alignment: isZeroButton ? .leading : .center
                 )
                 .scaledToFit()
         }

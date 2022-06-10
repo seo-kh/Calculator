@@ -35,6 +35,7 @@ struct ContentView: View {
                 .frame(maxWidth: .infinity ,maxHeight: 250, alignment: .bottomTrailing)
                 .minimumScaleFactor(0.5)
                 .lineLimit(1)
+                .padding()
             //: TEXT
             
             GeometryReader { geo in
