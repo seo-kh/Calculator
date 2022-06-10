@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var displayNumber = "0"
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text(displayNumber)
+                .font(.system(size: 60, weight: .regular, design: .rounded))
+            
+            Text("Footer")
+                .background(Color.blue)
+                
+        }
+        .padding()
     }
 }
 

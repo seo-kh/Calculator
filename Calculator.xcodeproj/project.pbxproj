@@ -11,6 +11,7 @@
 		6F41ADF028531FF6006DC697 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41ADEF28531FF6006DC697 /* ContentView.swift */; };
 		6F41ADF228531FF9006DC697 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41ADF128531FF9006DC697 /* Assets.xcassets */; };
 		6F41ADF528531FF9006DC697 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F41ADF428531FF9006DC697 /* Preview Assets.xcassets */; };
+		6F41ADFC28532936006DC697 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F41ADFB28532936006DC697 /* PanelView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		6F41ADEF28531FF6006DC697 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6F41ADF128531FF9006DC697 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6F41ADF428531FF9006DC697 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6F41ADFB28532936006DC697 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				6F41ADED28531FF6006DC697 /* CalculatorApp.swift */,
 				6F41ADEF28531FF6006DC697 /* ContentView.swift */,
+				6F41ADFB28532936006DC697 /* PanelView.swift */,
 				6F41ADF128531FF9006DC697 /* Assets.xcassets */,
 				6F41ADF328531FF9006DC697 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F41ADFC28532936006DC697 /* PanelView.swift in Sources */,
 				6F41ADF028531FF6006DC697 /* ContentView.swift in Sources */,
 				6F41ADEE28531FF6006DC697 /* CalculatorApp.swift in Sources */,
 			);
