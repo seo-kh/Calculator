@@ -7,87 +7,141 @@
 
 import SwiftUI
 
-enum CalculatorCategory: String, Hashable {
-    case funcion1, function2, number
-}
-
 struct PanelView: View {
     var body: some View {
-        HStack {
-            CustomButtonView(
-                title: "C",
-                buttonType: .funcion1
-            )
+        GeometryReader { geo in
+            let width = geo.size.width
+            let height = geo.size.height
+            let isWidthBig = width > height
+            let fitSize = isWidthBig ? height / 1.065 : width / 1.065
             
-            CustomButtonView(
-                title: "+/-",
-                buttonType: .funcion1
-            )
-            
-            CustomButtonView(
-                title: "%",
-                buttonType: .funcion1
-            )
-            
-            CustomButtonView(
-                title: "%",
-                buttonType: .function2
-            )
-        }
+            VStack {
+                HStack {
+                    CustomButtonView(
+                        title: "C",
+                        buttonType: .function1,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "+/-",
+                        buttonType: .function1,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "%",
+                        buttonType: .function1,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "%",
+                        buttonType: .function2,
+                        fitSize: fitSize
+                    )
+                } //: 1st HSTACK
+                HStack {
+                    CustomButtonView(
+                        title: "7",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "8",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "9",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "X",
+                        buttonType: .function2,
+                        fitSize: fitSize
+                    )
+                } //: 2nd HSTACK
+                HStack {
+                    CustomButtonView(
+                        title: "4",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "5",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "6",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "-",
+                        buttonType: .function2,
+                        fitSize: fitSize
+                    )
+                } //: 3rd HSTACK
+                HStack {
+                    CustomButtonView(
+                        title: "1",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "2",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "3",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "+",
+                        buttonType: .function2,
+                        fitSize: fitSize
+                    )
+                } //: 4th HSTACK
+                HStack {
+                    CustomButtonView(
+                        title: "0",
+                        buttonType: .number,
+                        fitSize: fitSize,
+                        isZeroButton: true
+                    )
+                    
+                    CustomButtonView(
+                        title: ".",
+                        buttonType: .number,
+                        fitSize: fitSize
+                    )
+                    
+                    CustomButtonView(
+                        title: "=",
+                        buttonType: .function2,
+                        fitSize: fitSize
+                    )
+                } //: 5th HSTACK
+            } //: VSTACK
+        } //: GEOMETRY
+        .frame(width: .infinity, height: .infinity, alignment: .center)
     }
 }
 
-struct CustomButtonView: View {
-    let title: String
-    let buttonType: CalculatorCategory
-    var buttonColor: String {
-        switch buttonType {
-        case .funcion1:
-            return "ButtonColor-1"
-        case .function2:
-            return "ButtonColor-2"
-        case .number:
-            return "NumberColor"
-        }
-    }
-    var textColor: Color {
-        switch buttonType {
-        case .funcion1:
-            return Color.black
-        case .function2:
-            return Color.white
-        case .number:
-            return Color.white
-        }
-    }
-    
-    var body: some View {
-        Button {
-            //
-        } label: {
-            GeometryReader { geo in
-                let width = geo.size.width
-                let height = geo.size.height
-                let isWidthBig = width > height
-                let fitSize = isWidthBig ? height / 2 : width / 2
-                
-                Circle()
-                    .fill(Color(buttonColor))
-                    .overlay(
-                        Text(title)
-                            .minimumScaleFactor(0.5)
-                            .font(.system(size: fitSize))
-                            .frame(
-                                width: fitSize,
-                                height: fitSize,
-                                alignment: .center)
-                            .foregroundColor(textColor)
-                )
-            }
-        }
-
-    }
-}
 
 struct PanelView_Previews: PreviewProvider {
     static var previews: some View {
