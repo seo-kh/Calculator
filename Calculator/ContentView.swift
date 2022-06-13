@@ -11,26 +11,12 @@ struct ContentView: View {
     // MARK: - PROPERTIES
 
     @State private var displayNumber = "0"
-    
-    //: Helper Variables
-    @State var operators: Operations = .add
-    @State var secondOperand: String = ""
-    @State var typeSecond: Bool = false
-
-    var formattedNumber: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.maximumFractionDigits = 5
-        formatter.maximumIntegerDigits = 9
-        
-        return formatter.string(from: (Double(displayNumber) ?? 0.0) as NSNumber)!
-    }
     // MARK: - BODY
 
     var body: some View {
 
         VStack {
-            Text(formattedNumber)
+            Text(displayNumber)
                 .font(.system(size: 100, weight: .light, design: .rounded))
                 .frame(maxWidth: .infinity ,maxHeight: 250, alignment: .bottomTrailing)
                 .minimumScaleFactor(0.5)
@@ -46,10 +32,7 @@ struct ContentView: View {
             
                 PanelView(
                     fitSize: fitSize,
-                    displayNumber: $displayNumber,
-                    operators: $operators,
-                    secondOperand: $secondOperand,
-                    typeSecond: $typeSecond
+                    displayNumber: $displayNumber
                 )
             } //: GEOMETRY
         } //: VSTACK

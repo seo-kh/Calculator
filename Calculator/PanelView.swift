@@ -12,9 +12,10 @@ struct PanelView: View {
 
     let fitSize: CGFloat
     @Binding var displayNumber: String
-    @Binding var operators: Operations
-    @Binding var secondOperand: String
-    @Binding var typeSecond: Bool
+    @State var operators: Operations = .none
+    @State var firstOperand: String = ""
+    @State var secondOperand: String = ""
+    @State var typeSecond: Bool = false
     @State var startType: Bool = false
     
     // MARK: - BODY
@@ -29,6 +30,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -40,6 +42,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -51,6 +54,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -62,6 +66,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -74,6 +79,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -85,6 +91,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -96,6 +103,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -107,6 +115,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -119,6 +128,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -130,6 +140,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -141,6 +152,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -152,6 +164,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -164,6 +177,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -175,6 +189,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -186,6 +201,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -197,6 +213,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -210,6 +227,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -221,6 +239,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )
@@ -232,6 +251,7 @@ struct PanelView: View {
                     displayNumber: $displayNumber,
                     startType: $startType,
                     operators: $operators,
+                    firstOperand: $firstOperand,
                     secondOperand: $secondOperand,
                     typeSecond: $typeSecond
                 )

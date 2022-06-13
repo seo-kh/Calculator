@@ -7,15 +7,6 @@
 
 import SwiftUI
 
-enum CalculatorCategory: String, Hashable {
-    case function1, function2, number
-}
-enum Operations: String, Hashable {
-    case add = "+"
-    case sub = "-"
-    case mul = "X"
-    case div = "÷"
-}
 
 struct CustomButtonView: View {
     // MARK: - PROPERTIES
@@ -28,6 +19,7 @@ struct CustomButtonView: View {
     @Binding var displayNumber: String
     @Binding var startType: Bool
     @Binding var operators: Operations
+    @Binding var firstOperand: String
     @Binding var secondOperand: String
     @Binding var typeSecond: Bool
     
@@ -53,18 +45,25 @@ struct CustomButtonView: View {
         }
     }
     
+    //: Formatter
+    let formatter = NumberFormatter()
+    
+    
     // MARK: - FUNCTIONS
 
     private func numberPanel(title: String) {
         if startType {
             if typeSecond {
                 secondOperand += title
+                displayNumber = secondOperand
             } else {
-                displayNumber += title
+                firstOperand += title
+                displayNumber = firstOperand
             }
         } else {
             startType = true
-            displayNumber = title
+            firstOperand = title
+            displayNumber = firstOperand
         }
     }
     private func function1Panel(title: String) {
@@ -72,18 +71,21 @@ struct CustomButtonView: View {
         case "C":
             startType = false
             displayNumber = "0"
-            operators = .add
+            operators = .none
+            firstOperand = ""
             secondOperand = ""
             typeSecond = false
         case "±":
-            let value = Float(displayNumber) ?? 0.0
-            displayNumber = String(describing: -value)
+            let value = Double(displayNumber) ?? 0.0
+            firstOperand = format(value: -value)
+            displayNumber = firstOperand
         case "%":
-            let value = Float(displayNumber) ?? 0.0
-            displayNumber = String(describing: value / 100.0)
+            let value = Double(displayNumber) ?? 0.0
+            firstOperand = format(value: value / 100.0)
+            displayNumber = firstOperand
             startType = true
         default:
-            fatalError("I don't know")
+            self.function1Panel(title: "C")
         }
     }
     private func function2Panel(title: String) {
@@ -101,51 +103,54 @@ struct CustomButtonView: View {
             operators = .mul
             typeSecond = true
         case ".":
-            if !displayNumber.contains(".") {
-                displayNumber += "."
+            if !firstOperand.contains(".") {
+                firstOperand += "."
+                displayNumber = firstOperand
                 startType = true
             }
         case "=":
-            let first = Double(displayNumber) ?? 0.0
+            let first = Double(firstOperand) ?? 0.0
             let second = Double(secondOperand) ?? 0.0
             
             switch operators {
             case .add:
                 let result = first + second
-                displayNumber = String(describing: result)
+                firstOperand = format(value: result)
+                displayNumber = firstOperand
             case .sub:
                 let result = first - second
-                displayNumber = String(describing: result)
+                firstOperand = format(value: result)
+                displayNumber = firstOperand
             case .mul:
                 let result = first * second
-                displayNumber = String(describing: result)
+                firstOperand = format(value: result)
+                displayNumber = firstOperand
             case .div:
                 let result = first / second
-                displayNumber = String(describing: result)
+                firstOperand = format(value: result)
+                displayNumber = firstOperand
+            case .none:
+                self.function1Panel(title: "C")
             }
             
-            self.clear()
+            secondOperand = ""
             
         default:
             self.function1Panel(title: "C")
         }
-    }
-    private func clear() {
-        operators = .add
-        secondOperand = ""
-        typeSecond = false
     }
     
     // MARK: - BODY
 
     var body: some View {
         Button {
-            if "0123456789".contains(title) {
-                self.numberPanel(title: title)
-            } else if "C±%".contains(title) {
+            switch buttonType {
+            case .function1:
                 self.function1Panel(title: title)
-            } else {
+            case .function2:
                 self.function2Panel(title: title)
+            case .number:
+                self.numberPanel(title: title)
             }
         } label: {
             Capsule()
