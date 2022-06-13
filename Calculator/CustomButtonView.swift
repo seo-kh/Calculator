@@ -10,7 +10,7 @@ import SwiftUI
 
 struct CustomButtonView: View {
     // MARK: - PROPERTIES
-
+    
     //: Parameters
     let title: String
     let buttonType: CalculatorCategory
@@ -46,29 +46,34 @@ struct CustomButtonView: View {
     }
     
     // MARK: - FUNCTIONS
-
+    
     private func numberPanel(title: String) {
-        // 첫 숫자가 작성되었을 때, 로직
-        if startType {
-            // 두 번째 숫자가 작성될 때, 로직
+        /// 첫 피연산자가 작성될 때, 로직
+        if !startType {
+            startType = true
+            firstOperand = title
+            displayNumber = firstOperand
+        } else {
+            /// 두 번째 피연산자가 작성될 때, 로직
             if typeSecond {
-                // 소수점 처리 로직
-                if title == "." {
-                    if secondOperand.isEmpty {
-                        secondOperand += "0."
-                    } else if secondOperand.contains(".") {
-                        //
-                    } else { secondOperand += title }
-                } else { secondOperand += title }
+                //  두 번째 피연산자 연속적인 0값입력 방지 로직
+                if secondOperand == "0" {
+                    blockConsecutiveZeroValue(operand: &secondOperand, title: title)
+                } else {
+                    // 소수점 처리 로직
+                    decimalPointHandler(operand: &secondOperand, title: title)
+                }
                 displayNumber = secondOperand
             } else {
-                firstOperand += firstOperand.contains(".") && title == "." ?  "" : title
+                // 첫 피연산자 연속적인 0값입력 방지 로직
+                if firstOperand == "0" {
+                    blockConsecutiveZeroValue(operand: &firstOperand, title: title)
+                } else {
+                    // 소수점 방지 로직
+                    decimalPointHandler(operand: &firstOperand, title: title)
+                }
                 displayNumber = firstOperand
             }
-        } else {
-            startType = true
-            firstOperand = title == "." ? "0." : title
-            displayNumber = firstOperand
         }
     } //: Number button에 대한 함수구현
     private func function1Panel(title: String) {
@@ -140,7 +145,7 @@ struct CustomButtonView: View {
     } //: Function2 button에 대한 함수구현
     
     // MARK: - BODY
-
+    
     var body: some View {
         Button {
             switch buttonType {
@@ -173,3 +178,38 @@ struct CustomButtonView: View {
     }
 }
 
+
+extension CustomButtonView {
+    /** 피연산자의 초기 연속적인 값이 0일때 방지하는 로직
+     
+     * example
+     <case1> 0004 -> 4
+     <case2> 00405 -> 405
+     */
+    fileprivate func blockConsecutiveZeroValue(operand: inout String, title: String) {
+        switch title {
+        case "0":
+            break
+        case ".":
+            operand = "0."
+        default:
+            operand = title
+        }
+    }
+    
+    /** 소수점 자리 오류 처리 로직
+     
+     - example
+     <case1> .023 -> 0.023
+     <case2> 1.245.4 -> 1.2454
+     */
+    fileprivate func decimalPointHandler(operand: inout String, title: String) {
+        if title == "." {
+            if operand.isEmpty {
+                operand += "0."
+            } else if operand.contains(".") {
+                //
+            } else { operand += title }
+        } else { operand += title }
+    }    
+}

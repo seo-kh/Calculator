@@ -7,9 +7,17 @@
 
 import Foundation
 
+/**
+    Button의 기능을 구분하기 위한 enum
+*/
 enum CalculatorCategory: String, Hashable {
     case function1, function2, number
 }
+
+/**
+    Operation(연산)을 구분하기위한 enum
+
+ */
 enum Operations: String, Hashable {
     case add = "+"
     case sub = "-"
@@ -18,8 +26,7 @@ enum Operations: String, Hashable {
     case none = "none"
 }
 
-// Display Number formatted.
-
+/// 계산기 화면 ( Display )에 나타날 문자 포맷 기능구현
 let formatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
