@@ -45,27 +45,32 @@ struct CustomButtonView: View {
         }
     }
     
-    //: Formatter
-    let formatter = NumberFormatter()
-    
-    
     // MARK: - FUNCTIONS
 
     private func numberPanel(title: String) {
+        // 첫 숫자가 작성되었을 때, 로직
         if startType {
+            // 두 번째 숫자가 작성될 때, 로직
             if typeSecond {
-                secondOperand += title
+                // 소수점 처리 로직
+                if title == "." {
+                    if secondOperand.isEmpty {
+                        secondOperand += "0."
+                    } else if secondOperand.contains(".") {
+                        //
+                    } else { secondOperand += title }
+                } else { secondOperand += title }
                 displayNumber = secondOperand
             } else {
-                firstOperand += title
+                firstOperand += firstOperand.contains(".") && title == "." ?  "" : title
                 displayNumber = firstOperand
             }
         } else {
             startType = true
-            firstOperand = title
+            firstOperand = title == "." ? "0." : title
             displayNumber = firstOperand
         }
-    }
+    } //: Number button에 대한 함수구현
     private func function1Panel(title: String) {
         switch title {
         case "C":
@@ -87,7 +92,7 @@ struct CustomButtonView: View {
         default:
             self.function1Panel(title: "C")
         }
-    }
+    } //: Function1 button에 대한 함수구현
     private func function2Panel(title: String) {
         switch title {
         case "÷":
@@ -102,12 +107,6 @@ struct CustomButtonView: View {
         case "X":
             operators = .mul
             typeSecond = true
-        case ".":
-            if !firstOperand.contains(".") {
-                firstOperand += "."
-                displayNumber = firstOperand
-                startType = true
-            }
         case "=":
             let first = Double(firstOperand) ?? 0.0
             let second = Double(secondOperand) ?? 0.0
@@ -138,7 +137,7 @@ struct CustomButtonView: View {
         default:
             self.function1Panel(title: "C")
         }
-    }
+    } //: Function2 button에 대한 함수구현
     
     // MARK: - BODY
 

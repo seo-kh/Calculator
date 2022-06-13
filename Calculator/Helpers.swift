@@ -18,6 +18,8 @@ enum Operations: String, Hashable {
     case none = "none"
 }
 
+// Display Number formatted.
+
 let formatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
