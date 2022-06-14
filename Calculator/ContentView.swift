@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
+    
     // MARK: - PROPERTIES
-
-    @State private var displayNumber = "0"
+    
+    @AppStorage("displayNumber") var displayNumber: String = "0"
+    
     // MARK: - BODY
 
     var body: some View {
