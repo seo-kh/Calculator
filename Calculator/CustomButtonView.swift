@@ -24,14 +24,14 @@ struct CustomButtonView: View {
     @Binding var typeSecond: Bool
     
     //: Computed Properties
-    var buttonColor: String {
+    var buttonColor: Color {
         switch buttonType {
         case .function1:
-            return "ButtonColor-1"
+            return Color("ButtonColor-1")
         case .function2:
-            return "ButtonColor-2"
+            return Color("ButtonColor-2")
         case .number:
-            return "NumberColor"
+            return Color("NumberColor")
         }
     }
     var textColor: Color {
@@ -43,6 +43,11 @@ struct CustomButtonView: View {
         case .number:
             return Color.white
         }
+    }
+    
+    @State private var isClicked: Bool = false
+    var buttonClicked: Bool {
+        buttonType == .function2 && isClicked && title == operators.currentOperation
     }
     
     // MARK: - FUNCTIONS
@@ -85,6 +90,7 @@ struct CustomButtonView: View {
             firstOperand = ""
             secondOperand = ""
             typeSecond = false
+            isClicked = false
         case "±":
             let value = Double(displayNumber) ?? 0.0
             firstOperand = format(value: -value)
@@ -137,12 +143,19 @@ struct CustomButtonView: View {
                 self.function1Panel(title: "C")
             }
             
-            secondOperand = ""
+            print("\(firstOperand), \(secondOperand), \(displayNumber), \(operators),")
+            
+            clear()
             
         default:
             self.function1Panel(title: "C")
         }
     } //: Function2 button에 대한 함수구현
+    private func clear() {
+        operators = .none
+        secondOperand = ""
+        isClicked = false
+    } //: Clear button
     
     // MARK: - BODY
     
@@ -158,7 +171,7 @@ struct CustomButtonView: View {
             }
         } label: {
             Capsule()
-                .fill(Color(buttonColor))
+                .fill(buttonClicked ? textColor : buttonColor)
                 .frame(width: isZeroButton ? fitSize / 1.9 : fitSize / 4, height: fitSize / 4)
                 .overlay(
                     Text(title)
@@ -169,10 +182,25 @@ struct CustomButtonView: View {
                             width: fitSize / 8,
                             height: fitSize / 8,
                             alignment: .center)
-                        .foregroundColor(textColor)
+                        .foregroundColor(buttonClicked ? buttonColor : textColor)
                     , alignment: isZeroButton ? .leading : .center
                 )
                 .scaledToFit()
+                .animation(.easeInOut(duration: 0.5), value: buttonClicked)
+        }
+        .onChange(of: operators) { newValue in
+            switch newValue {
+            case .none:
+                isClicked = false
+            case .add:
+                isClicked = true
+            case .mul:
+                isClicked = true
+            case .div:
+                isClicked = true
+            case .sub:
+                isClicked = true
+            }
         }
         
     }

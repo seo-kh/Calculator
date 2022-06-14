@@ -24,6 +24,10 @@ enum Operations: String, Hashable {
     case mul = "X"
     case div = "÷"
     case none = "none"
+    
+    var currentOperation: String {
+        self.rawValue
+    }
 }
 
 /// 계산기 화면 ( Display )에 나타날 문자 포맷 기능구현
