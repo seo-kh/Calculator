@@ -83,6 +83,7 @@ struct CustomButtonView: View {
     } //: Number button에 대한 함수구현
     private func function1Panel(title: String) {
         switch title {
+        /// All Clear Function
         case "C":
             startType = false
             displayNumber = "0"
@@ -121,41 +122,13 @@ struct CustomButtonView: View {
         case "=":
             let first = Double(firstOperand) ?? 0.0
             let second = Double(secondOperand) ?? 0.0
-            
-            switch operators {
-            case .add:
-                let result = first + second
-                firstOperand = format(value: result)
-                displayNumber = firstOperand
-            case .sub:
-                let result = first - second
-                firstOperand = format(value: result)
-                displayNumber = firstOperand
-            case .mul:
-                let result = first * second
-                firstOperand = format(value: result)
-                displayNumber = firstOperand
-            case .div:
-                let result = first / second
-                firstOperand = format(value: result)
-                displayNumber = firstOperand
-            case .none:
-                self.function1Panel(title: "C")
-            }
-            
-            print("\(firstOperand), \(secondOperand), \(displayNumber), \(operators),")
-            
+            operationEnd(first, second)
             clear()
-            
         default:
             self.function1Panel(title: "C")
         }
     } //: Function2 button에 대한 함수구현
-    private func clear() {
-        operators = .none
-        secondOperand = ""
-        isClicked = false
-    } //: Clear button
+
     
     // MARK: - BODY
     
@@ -192,13 +165,7 @@ struct CustomButtonView: View {
             switch newValue {
             case .none:
                 isClicked = false
-            case .add:
-                isClicked = true
-            case .mul:
-                isClicked = true
-            case .div:
-                isClicked = true
-            case .sub:
+            case .add, .mul, .div, .sub:
                 isClicked = true
             }
         }
@@ -239,5 +206,36 @@ extension CustomButtonView {
                 //
             } else { operand += title }
         } else { operand += title }
-    }    
+    }
+    
+   /// 연산 처리 로직
+    fileprivate func operationEnd(_ first: Double, _ second: Double) {
+        switch operators {
+        case .add:
+            let result = first + second
+            firstOperand = format(value: result)
+            displayNumber = firstOperand
+        case .sub:
+            let result = first - second
+            firstOperand = format(value: result)
+            displayNumber = firstOperand
+        case .mul:
+            let result = first * second
+            firstOperand = format(value: result)
+            displayNumber = firstOperand
+        case .div:
+            let result = first / second
+            firstOperand = format(value: result)
+            displayNumber = firstOperand
+        case .none:
+            self.function1Panel(title: "C")
+        }
+    }
+    
+    /// Clear Function.
+    fileprivate func clear() {
+        operators = .none
+        secondOperand = ""
+        isClicked = false
+    }
 }
