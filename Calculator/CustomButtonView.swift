@@ -45,6 +45,7 @@ struct CustomButtonView: View {
         }
     }
     
+    // Animation을 위한 Property
     @State private var isClicked: Bool = false
     var buttonClicked: Bool {
         buttonType == .function2 && isClicked && title == operators.currentOperation
@@ -173,6 +174,8 @@ struct CustomButtonView: View {
     }
 }
 
+
+// MARK: - EXTENTION
 
 extension CustomButtonView {
     /** 피연산자의 초기 연속적인 값이 0일때 방지하는 로직
