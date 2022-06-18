@@ -101,7 +101,6 @@ struct CustomButtonView: View {
             let value = Double(displayNumber) ?? 0.0
             firstOperand = format(value: value / 100.0)
             displayNumber = firstOperand
-            startType = true
         default:
             self.function1Panel(title: "C")
         }
@@ -121,10 +120,12 @@ struct CustomButtonView: View {
             operators = .mul
             typeSecond = true
         case "=":
-            let first = Double(firstOperand) ?? 0.0
-            let second = Double(secondOperand) ?? 0.0
-            operationEnd(first, second)
-            clear()
+            if !firstOperand.isEmpty && !secondOperand.isEmpty {
+                let first = Double(firstOperand) ?? 0.0
+                let second = Double(secondOperand) ?? 0.0
+                operationEnd(first, second)
+                clear()
+            }
         default:
             self.function1Panel(title: "C")
         }
